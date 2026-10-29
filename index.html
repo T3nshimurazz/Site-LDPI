@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>As coisas que você pediu ta la no final professora</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Galeria</a>
+    </nav>
+    <hr>
+    <br>
+    <h1>Jinshi-Mushi -- MUTO</h1>
+    <p> MUTO (Massive Undentified Terrestrial Organism) ou Jinshi-Mushi é um monstro ficional criado pela legendary studios para o filme "Godzilla" lançado em 2014 agindo como os principais antagonistas do filme, eles buscam criar um ninho usando de energia nuclear para alimentar os filhotes. Eles possuem uma aparência semelhante a de insetos com traços aracnídeos, além de comportamentos semelhantes </p>
+    <br>
+    <h4>Aparência</h4>
+    <p>Como dito acima MUTOs possuem uma aparência parecida com de insetos e traços aracnídeos, com o macho sendo menor (60 Metros) e possuindo asas e a fêmea possuindo 8 patas e sendo ligeiramente maior com 90 metros e ausência de asas</p>
+    <img src="MUTOs.png" alt="Imagem dos MUTOs"
+    width="500" height="400" title="MUTOs">
+    <br>
+    <h3>"MUTO"ções</h3>
+    <br>
+    <p> Em alguns casos MUTOs podem acabar tendo mutações aumentando sua força resistência e tudo mais, essas mutações occorem EXCLUSIVAMENTE nas fêmeas da espécie. Existem duas mutações conhecidas sendo elas nomeadas de "Queen" e "Prime"</p>
+    <br>
+    <h2>MUTO Prime</h2>
+    <br>
+    <p> Teve sua primeira aparição na graphic novel "Godzilla: Aftershock" sendo um dos filhotes dos MUTOs que lutaram contra o Godzilla em São Francisco no filme de 2014. Seu corpo continua igual ao de um MUTO comum, com diferença das patas dianteiras que possuem uma carapaça mais rígida e cor alaranjada, com duas garras extremamente afiadas. Seu objetivo era infectar Godzilla com uma larva parasitária eventualmente criar uma hiperpopulação de MUTOs. Mais tarde na Novel é revelada que essa forma é semelhante a uma forma ancestral de um MUTO que lutou contra Dagon um Ancestral de Godzilla que conhecemos.</p>
+    <img src="PRIME.png" alt="Prime Muto"
+    width="404" height="733" title="PRIME">
+    <br>
+    <h2>Queen MUTO</h2>
+    <p> Teve sua primeira aparição no filme "Godzilla II Rei dos Monstros" de 2019 não sabemos exatamente como ocorreu ou pra que ela apareceu, já que a uníca coisa que ela fez foi se curvar perante ao Godzilla no final do filme. A Queen MUTO é maior do que os MUTOs normais e possui uma estrutura osseá semelhante de a de uma tíara sendo a origem de seu nome. Os fãs apelidaram ela carinhosamente de Barb.</p>
+    <img src="QUEEN.png" alt="Queen MUTO"
+    width="400" height="790" title="QUEEN">
+    
+<h2>Lista de Tarefas</h2>
+
+<input type="text" id="tarefa" placeholder="Digite uma tarefa">
+<button onclick="adicionar()">Adicionar</button>
+
+<p id="mensagem"></p>
+
+<p>
+    Total: <span id="total">0</span> |
+    Pendentes: <span id="pendentes">0</span> |
+    Concluídas: <span id="concluidas">0</span>
+</p>
+
+<select id="filtro" onchange="mostrar()">
+    <option value="todas">Todas</option>
+    <option value="pendentes">Pendentes</option>
+    <option value="concluidas">Concluídas</option>
+</select>
+
+<ul id="lista"></ul>
+
+<script>
+    let tarefas = [];
+
+    function adicionar() {
+        let texto = document.getElementById("tarefa").value;
+
+        if (texto.trim() == "") {
+            document.getElementById("mensagem").innerHTML =
+                "Digite uma tarefa!";
+            return;
+        }
+
+        tarefas.push({
+            nome: texto,
+            concluida: false
+        });
+
+        document.getElementById("tarefa").value = "";
+        document.getElementById("mensagem").innerHTML = "";
+
+        mostrar();
+    }
+
+    function mostrar() {
+        let lista = document.getElementById("lista");
+        let filtro = document.getElementById("filtro").value;
+
+        lista.innerHTML = "";
+
+        for (let i = 0; i < tarefas.length; i++) {
+            if (filtro == "pendentes" && tarefas[i].concluida) {
+                continue;
+            }
+
+            if (filtro == "concluidas" && !tarefas[i].concluida) {
+                continue;
+            }
+
+            let item = document.createElement("li");
+
+            item.innerHTML = tarefas[i].nome + " ";
+
+            let botao = document.createElement("button");
+
+            botao.innerHTML = tarefas[i].concluida
+                ? "Marcar como pendente"
+                : "Concluir";
+
+            botao.onclick = function() {
+                tarefas[i].concluida = !tarefas[i].concluida;
+                mostrar();
+            };
+
+            let excluir = document.createElement("button");
+            excluir.innerHTML = "Excluir";
+
+            excluir.onclick = function() {
+                tarefas.splice(i, 1);
+                mostrar();
+            };
+
+            item.appendChild(botao);
+            item.appendChild(excluir);
+            lista.appendChild(item);
+        }
+
+        document.getElementById("total").innerHTML = tarefas.length;
+
+        document.getElementById("pendentes").innerHTML =
+            tarefas.filter(t => !t.concluida).length;
+
+        document.getElementById("concluidas").innerHTML =
+            tarefas.filter(t => t.concluida).length;
+    }
+</script>
+
+</body>
+</html>>
